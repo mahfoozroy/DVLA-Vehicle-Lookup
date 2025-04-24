@@ -11,7 +11,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 if ( ! defined( 'DVLA_API_KEY' ) ) {
-    define( 'DVLA_API_KEY', 'wH0tRnrXL63hv89BsjcBA5cN71WYGNyZ5UniFZMy' );
+    define( 'DVLA_API_KEY', '' );
 }
 
 require_once plugin_dir_path(__FILE__) . 'class-dvla-vehicle-lookup.php';
