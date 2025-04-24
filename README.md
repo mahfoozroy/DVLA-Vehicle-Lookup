@@ -107,7 +107,7 @@ This plugin is open-source and released under the GPL v2 or later license.
 
 ## 👨‍💻 Author
 
-Created by: **Your Name**  
+Created by: **Roy Mahfooz**  
 Website: [https://roymahfooz.com](https://roymahfooz.com)
 
 Need help or customization? Reach out!
