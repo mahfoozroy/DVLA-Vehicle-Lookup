@@ -1,2 +1,2 @@
-# dvla-lookup-api
+# DVLA Vehicle Lookup Plugin, dvla-lookup-api
 Driver Vehicle Lookup United Kingdom, Vehicle registration inquiry UK
