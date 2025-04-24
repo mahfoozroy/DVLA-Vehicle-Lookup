@@ -1,100 +1,113 @@
-=== DVLA Vehicle Lookup ===
-Contributors: your-name
-Tags: dvla, vehicle, registration, uk, lookup, booking, api, mechanic
-Requires at least: 5.0
-Tested up to: 6.5
-Stable tag: 1.1
-License: GPLv2 or later
-License URI: https://www.gnu.org/licenses/gpl-2.0.html
+# DVLA Vehicle Lookup for WordPress
 
-A lightweight WordPress plugin to lookup UK vehicle registration numbers using the DVLA API and redirect users to a booking or information page with results.
+**DVLA Vehicle Lookup** is a lightweight WordPress plugin that lets users enter a UK vehicle registration number and fetch official data from the DVLA (Driver and Vehicle Licensing Agency) API. It is ideal for mechanic booking websites, MOT check tools, or vehicle data portals.
 
-== Description ==
+## ✅ Features
 
-**DVLA Vehicle Lookup** lets users enter a UK vehicle registration number and fetch official data from the DVLA (Driver and Vehicle Licensing Agency) API. The plugin is perfect for mechanic booking websites, MOT check tools, or vehicle evaluation sites.
+- Clean AJAX-based vehicle registration form with Font Awesome icon
+- Uses official [DVLA Vehicle Enquiry Service API](https://developer-portal.driver-vehicle-licensing.api.gov.uk/apis/vehicle-enquiry-service)
+- Redirect users to any page after lookup with dynamic query key
+- Stores vehicle data using WordPress transients (15 min expiry)
+- Includes daily cleanup cron job to prevent database bloat
+- Shortcode to render vehicle data in a responsive table
+- Proper error handling and fallback messaging
 
-✅ Uses official DVLA Vehicle Enquiry Service API  
-✅ Shows a styled input form with vehicle icon  
-✅ AJAX lookup with live validation  
-✅ Saves vehicle data in a WordPress transient  
-✅ Redirects users to a results or booking page  
-✅ Shortcode-based, lightweight, and flexible
+---
 
-== Features ==
+## 🔧 Installation
 
-- Clean input form with Font Awesome icon
-- Dynamic redirection after lookup (via shortcode attribute)
-- Transient caching to reduce API calls
-- Vehicle data display shortcode with formatted table
-- Customizable confirmation page
-- Graceful error handling and validation
-- Daily cleanup of expired transients
-
-== Installation ==
-
-1. Download the plugin ZIP and upload via **Plugins > Add New > Upload Plugin**
-2. Activate the plugin
-3. Define your DVLA API Key in `wp-config.php`:
+1. Upload the plugin files to the `/wp-content/plugins/` directory, or install via WordPress admin.
+2. Activate the plugin.
+3. Define your DVLA API key in `wp-config.php`:
 
 ```php
 define('DVLA_API_KEY', 'your_api_key_here');
+```
 
+4. Use the lookup shortcode:
+
+```text
 [vehicle_lookup_form redirect="/booking-details/"]
+```
 
-This will show a vehicle registration input and redirect to the URL with ?lookup_key=... after lookup.
+5. On your target booking/details page, use this shortcode to display results:
 
-== Shortcodes ==
-
-[vehicle_lookup_form redirect="/your-page/"]
-
-Shows the form to enter a UK registration number. The redirect attribute specifies where to go after a successful lookup.
-
+```text
 [display_vehicle_details]
+```
 
-Displays the vehicle data stored via transient. Must be placed on the page defined in redirect.
+---
 
-== Example Flow ==
+## 🔌 Shortcodes
 
-User enters vehicle registration number on a lookup page.
+### `[vehicle_lookup_form redirect="/your-page/"]`
 
-Plugin sends request to DVLA API and caches response.
+- Renders a styled form to input vehicle registration.
+- On submit, performs AJAX lookup, saves results to a transient.
+- Redirects to the given `redirect` URL with a `lookup_key` in the query string.
 
-User is redirected to a page like /booking-details/?lookup_key=abc123
+### `[display_vehicle_details]`
 
-[display_vehicle_details] shortcode on that page displays the vehicle data.
+- Reads the transient based on `lookup_key` from URL.
+- Displays a well-formatted table of vehicle data.
+- Automatically handles missing fields.
 
-== Frequently Asked Questions ==
+---
 
-= Where do I get a DVLA API key? =
-Register for a key at: https://developer-portal.driver-vehicle-licensing.api.gov.uk/apis/vehicle-enquiry-service
+## 🚀 Example User Flow
 
-= What happens if the API fails? =
-A friendly error message is shown to the user and data is not stored.
+1. User visits `/lookup`, enters vehicle reg number.
+2. Plugin sends data to DVLA and saves results in a transient.
+3. User is redirected to `/booking-details/?lookup_key=abc123`.
+4. That page contains `[display_vehicle_details]` and shows vehicle info.
 
-= Does this plugin support caching? =
-Yes — vehicle data is cached in WordPress transients for 15 minutes by default.
+---
 
-= Will expired transients pile up in my database? =
-No — the plugin includes a daily cleanup cron job that removes expired transients starting with vehicle_lookup_.
+## 🧼 Daily Cleanup Cron
 
-== Changelog ==
+The plugin includes a scheduled daily cron job that scans for and removes expired transients beginning with `vehicle_lookup_`. This prevents your `wp_options` table from bloating over time.
 
-= 1.1 =
+---
 
-Added styled input form with icon
+## 💡 Frequently Asked Questions
 
-Added transient-based caching
+**Where can I get a DVLA API key?**  
+You can register at: https://developer-portal.driver-vehicle-licensing.api.gov.uk/apis/vehicle-enquiry-service
 
-Added shortcode for displaying results
+**Is the data cached?**  
+Yes. Vehicle data is stored in a transient for 15 minutes to reduce API calls.
 
-Added daily cleanup cron
+**What if the API fails?**  
+A clean error message is shown to the user. The page does not crash.
 
-Improved error handling and security checks
+**Can I change the redirect page?**  
+Yes — you control it via the `redirect` attribute in the shortcode.
 
-== Upgrade Notice ==
+**Is it compatible with page builders?**  
+Yes — you can add the shortcodes anywhere shortcodes are supported (Gutenberg, Elementor, etc.).
 
-= 1.1 = Includes all core features with cleanup and display support. Recommended update.
+---
 
-== License ==
+## 📄 License
 
-GPLv2 or later
+This plugin is open-source and released under the GPL v2 or later license.
+
+---
+
+## 📝 Changelog
+
+### 1.1
+- Added styled input form with Font Awesome icon
+- Added transient caching for DVLA responses
+- Added shortcode to display results
+- Implemented daily cron cleanup for expired transients
+- Improved error handling and validation
+
+---
+
+## 👨‍💻 Author
+
+Created by: **Your Name**  
+Website: [https://roymahfooz.com](https://roymahfooz.com)
+
+Need help or customization? Reach out!
