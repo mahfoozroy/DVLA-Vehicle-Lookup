@@ -112,3 +112,31 @@ function display_vehicle_details_shortcode() {
 	return ob_get_clean();
 }
 add_shortcode( 'display_vehicle_details', 'display_vehicle_details_shortcode' );
+
+/**
+ * Register DVLA Lookup Block.
+ */
+function dvla_lookup_register_block() {
+    if ( ! function_exists( 'register_block_type' ) ) {
+        return;
+    }
+
+    wp_register_script(
+        'dvla-lookup-block',
+        plugins_url( 'blocks/src/index.js', __FILE__ ),
+        [ 'wp-blocks', 'wp-element', 'wp-editor' ],
+        filemtime( plugin_dir_path( __FILE__ ) . 'blocks/src/index.js' )
+    );
+
+    register_block_type( plugin_dir_path( __FILE__ ) . 'blocks/block.json', [
+        'render_callback' => 'dvla_lookup_render_vehicle_details',
+    ] );
+}
+add_action( 'init', 'dvla_lookup_register_block' );
+
+/**
+ * Callback to render the block output.
+ */
+function dvla_lookup_render_vehicle_details() {
+    return do_shortcode( '[display_vehicle_details]' );
+}
