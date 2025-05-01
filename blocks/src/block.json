@@ -1,5 +1,5 @@
 {
-    "apiVersion": 2,
+    "apiVersion": 3,
     "name": "dvla-lookup/display-vehicle-details",
     "title": "Vehicle Details (DVLA Lookup)",
     "description": "Display vehicle details fetched from the DVLA lookup.",
