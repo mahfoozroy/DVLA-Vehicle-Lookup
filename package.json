@@ -1,0 +1,15 @@
+{
+  "name": "dvla-vehicle-lookup",
+  "version": "1.0.0",
+  "description": "**DVLA Vehicle Lookup** is a lightweight WordPress plugin that lets users enter a UK vehicle registration number and fetch official data from the DVLA (Driver and Vehicle Licensing Agency) API. It is ideal for mechanic booking websites, MOT check tools, or vehicle data portals.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "@wordpress/scripts": "^30.16.0"
+  }
+}
