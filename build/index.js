@@ -1,0 +1,1 @@
+(()=>{"use strict";const e=window.wp.blocks,i=(window.wp.element,window.ReactJSXRuntime);(0,e.registerBlockType)("dvla-lookup/display-vehicle-details",{title:"Vehicle Details (DVLA Lookup)",icon:"car",category:"widgets",edit:()=>(0,i.jsx)("p",{children:(0,i.jsx)("strong",{children:"Vehicle Details Block Preview (Editor)"})}),save:()=>null})})();

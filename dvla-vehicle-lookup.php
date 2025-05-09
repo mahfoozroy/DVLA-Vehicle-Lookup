@@ -119,7 +119,7 @@ add_shortcode( 'display_vehicle_details', 'display_vehicle_details_shortcode' );
 add_action('init', function() {
     wp_register_script(
         'dvla-lookup-block',
-        plugins_url('blocks/src/index.js', __FILE__),
+        plugins_url( 'src/index.js', __FILE__),
         ['wp-blocks', 'wp-element', 'wp-editor'],
         filemtime(plugin_dir_path(__FILE__) . 'blocks/src/index.js')
     );
