@@ -10,7 +10,7 @@ defined( 'ABSPATH' ) || exit;
 /**
  * Class VehicleLookupForm
  */
-class VehicleLookupForm {
+class DVLA_Lookup_Form {
 
     /**
      * DVLA API key.
@@ -24,27 +24,25 @@ class VehicleLookupForm {
      */
     public function __construct() {
         $this->api_key = defined( 'DVLA_API_KEY' ) ? DVLA_API_KEY : '';
-
-        add_shortcode( 'vehicle_lookup_form', [ $this, 'renderForm' ] );
-        add_action( 'wp_enqueue_scripts', [ $this, 'enqueueScripts' ] );
-        add_action( 'wp_ajax_vehicle_lookup', [ $this, 'handleAjax' ] );
-        add_action( 'wp_ajax_nopriv_vehicle_lookup', [ $this, 'handleAjax' ] );
+        add_action( 'wp_enqueue_scripts', [ $this, 'enqueue_scripts' ] );
+        add_action( 'wp_ajax_vehicle_lookup', [ $this, 'handle_ajax' ] );
+        add_action( 'wp_ajax_nopriv_vehicle_lookup', [ $this, 'handle_ajax' ] );
     }
 
     /**
      * Enqueue front-end styles and scripts.
      */
-    public function enqueueScripts() {
+    public function enqueue_scripts() {
         wp_enqueue_style(
             'vehicle-lookup-style',
-            plugins_url( 'assets/vehicle-lookup.css', __FILE__ ),
+            DVLA_URL . 'assets/vehicle-lookup.css',
             [],
             '1.0'
         );
 
         wp_enqueue_script(
             'vehicle-lookup',
-            plugins_url( 'assets/vehicle-lookup.js', __FILE__ ),
+            DVLA_URL . 'assets/vehicle-lookup.js',
             [ 'jquery' ],
             '1.0',
             true
@@ -61,42 +59,9 @@ class VehicleLookupForm {
     }
 
     /**
-     * Render the vehicle lookup form shortcode.
-     *
-     * @param array $atts Shortcode attributes.
-     * @return string HTML output.
-     */
-    public function renderForm( $atts ) {
-        $atts = shortcode_atts(
-            [
-                'redirect' => '',
-            ],
-            $atts,
-            'vehicle_lookup_form'
-        );
-
-        ob_start();
-        ?>
-        <form id="vehicle-lookup-form">
-            <label for="vehicle-registration"><?php esc_html_e( 'Vehicle Registration *', 'your-text-domain' ); ?></label>
-            <div class="vehicle-input-wrapper">
-                <i class="awb-form-icon fas fa-car"></i>
-                <input type="text" id="vehicle-registration" name="vehicle_registration" placeholder="<?php esc_attr_e( 'Registration Number', 'your-text-domain' ); ?>">
-            </div>
-            <button type="submit"><?php esc_html_e( 'Book Mechanic', 'your-text-domain' ); ?></button>
-            <div id="lookup-message" style="margin-top: 10px;"></div>
-        </form>
-        <script type="text/javascript">
-            window.vehicleLookupRedirectUrl = '<?php echo esc_js( esc_url( $atts['redirect'] ) ); ?>';
-        </script>
-        <?php
-        return ob_get_clean();
-    }
-
-    /**
      * Handle AJAX request for vehicle lookup.
      */
-    public function handleAjax() {
+    public function handle_ajax() {
         check_ajax_referer( 'vehicle_lookup_nonce', 'nonce' );
 
         if ( empty( $_POST['registration'] ) ) {
