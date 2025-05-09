@@ -50,7 +50,7 @@ class DVLA_Vehicle_Lookup {
      * @param string $registration Vehicle registration number.
      * @return bool True if successful, false on failure.
      */
-    public function lookupVehicle( $registration ) {
+    public function lookup_vehicle( $registration ) {
         $url      = 'https://driver-vehicle-licensing.api.gov.uk/vehicle-enquiry/v1/vehicles';
         $request  = [
             'headers' => [
@@ -84,7 +84,7 @@ class DVLA_Vehicle_Lookup {
      *
      * @return array The vehicle data array.
      */
-    public function getAllData() {
+    public function get_all_data() {
         return $this->data;
     }
 
@@ -93,7 +93,7 @@ class DVLA_Vehicle_Lookup {
      *
      * @return string The error message.
      */
-    public function getLastError() {
+    public function get_last_error() {
         return $this->last_error;
     }
 }

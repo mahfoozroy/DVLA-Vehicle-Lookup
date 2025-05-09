@@ -71,11 +71,11 @@ class DVLA_Lookup_Form {
         $registration = sanitize_text_field( wp_unslash( $_POST['registration'] ) );
         $lookup       = new DVLA_Vehicle_Lookup( $this->api_key );
 
-        if ( ! $lookup->lookupVehicle( $registration ) ) {
-            wp_send_json_error( [ 'message' => $lookup->getLastError() ] );
+        if ( ! $lookup->lookup_vehicle( $registration ) ) {
+            wp_send_json_error( [ 'message' => $lookup->get_last_error() ] );
         }
 
-        $data          = $lookup->getAllData();
+        $data          = $lookup->get_all_data();
         $transient_key = 'vehicle_lookup_' . md5( $registration );
 
         // Prepare response.
